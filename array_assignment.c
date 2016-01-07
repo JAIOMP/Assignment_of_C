@@ -49,9 +49,8 @@ int findIndex(ArrayUtil util,void * element){
 }
 void *findFirst(ArrayUtil util,MatchFunc* match,void* hint){
 	int *group;
-	int *res = NULL;
 	if(util.length==0){
-		return 0;
+		return NULL;
 	}
 	else{
 		int i = 0;
@@ -61,6 +60,7 @@ void *findFirst(ArrayUtil util,MatchFunc* match,void* hint){
 	}
 		return (i < util.length) ? group : NULL;
 	} 
+
 };
 void *findLast(ArrayUtil util,MatchFunc* match,void *hint){
 	if(util.length==0){
@@ -89,6 +89,23 @@ int count(ArrayUtil util,MatchFunc* match,void *hint){
 			group = util.base+(util.typesize*i);
 			if ((*match)(hint,group)) count++ ;
 		}
+	return count;
+}
+int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int maxItems ){
+	// *destination = (ArrayUtil *)malloc(maxItems*sizeof(util));	
+	int count = 0;
+	int *group = util.base;
+	void *dest = destination;
+	int *destin = dest;
+	if (util.length < maxItems){
+	for (int i = 0; i <util.length ; ++i){
+		group = util.base + (util.typesize*i);
+		if((*match)(hint,group)){
+			destin[count] = *group;
+			count++;
+		}
+	}
+}
 	return count;
 }
 int isEven(void * hint , void * item){

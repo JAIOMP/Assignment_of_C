@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "array_util.h"
+#include "array_lib.h"
 
 void test_create_array(){
 	ArrayUtil array_1 =  create(sizeof(int), 2);

@@ -1,4 +1,4 @@
-typedef struct util{
+typedef struct {
 	void *base;
 	int typesize;
 	int length;
@@ -15,4 +15,5 @@ int findIndex(ArrayUtil util,void *element);
 int isEven(void *hint,void *item);
 void *findLast(ArrayUtil,MatchFunc* che,void * hint);
 int count(ArrayUtil util,MatchFunc* match,void *hint);
+int filter(ArrayUtil util,MatchFunc* match,void* hint,void** dest,int max);
 
