@@ -92,7 +92,6 @@ int count(ArrayUtil util,MatchFunc* match,void *hint){
 	return count;
 }
 int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int maxItems ){
-	// *destination = (ArrayUtil *)malloc(maxItems*sizeof(util));	
 	int count = 0;
 	int *group = util.base;
 	void *dest = destination;
@@ -108,6 +107,35 @@ int filter(ArrayUtil util, MatchFunc* match, void* hint, void** destination, int
 }
 	return count;
 }
+
+
+void map(ArrayUtil source, ArrayUtil destination, ConvertFunc* convert, void* hint){
+	int *group_of_source = source.base;
+	int *group_of_destination = destination.base;
+	for (int i = 0; i < source.length; ++i)
+	{
+		group_of_source = source.base + (source.typesize*i);
+		group_of_destination = destination.base + (destination.typesize*i);
+		convert(hint,group_of_source,group_of_destination);
+	}
+
+}   
+ 
+void add_numbers(void *hint,void *sourceItem,void *destinationItem){
+	int *num = sourceItem;
+	int *where_to_add = destinationItem;
+	int *what_to_add = hint;
+	*where_to_add = (*num + *what_to_add); 
+}
+
+void multiply_numbers(void *hint,void *sourceItem,void *destinationItem){
+	int *num = sourceItem;
+	int *where_to_add = destinationItem;
+	int *what_to_add = hint;
+	*where_to_add = (*num * *what_to_add); 
+}
+
+
 int isEven(void * hint , void * item){
 	int *num = item;
 	return (*num%2==0);
