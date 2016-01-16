@@ -11,6 +11,9 @@ typedef struct list{
 } LinkedList;
 
 typedef void(*ElementProcessor)(void*);
+typedef int(MatchFunc)(void *,void *);
+typedef void(ConvertFunc)(void *,void *,void *);
+typedef void *(Reducer)(void *,void *,void *);
 
 
 LinkedList createList(void);
@@ -23,3 +26,8 @@ int indexOf(LinkedList, void *);
 void *deleteElementAt(LinkedList *,int);
 void decrementIndex(Element *element);
 void *deleteAtFirst(LinkedList *list);
+int asArray(LinkedList *list, void ** arr, int maxElements);
+LinkedList Filter(LinkedList list, MatchFunc increase,void*);
+LinkedList map(LinkedList, ConvertFunc, void * );
+void *Reduce(LinkedList list, Reducer plus, void *hint, void *initialValue);
+LinkedList reverse(LinkedList *list);
